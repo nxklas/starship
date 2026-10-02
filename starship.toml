@@ -1,13 +1,108 @@
-# Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
+format = """
+$username\
+$hostname\
+$directory\
+${custom.void}\
+$git_branch\
+$fill\
+$status\
+$cmd_duration
+$character
+"""
 
-# Inserts a blank line between shell prompts
-add_newline = true
+palette = "gruvbox"
 
-# Replace the '❯' symbol in the prompt with '➜'
-[character] # The name of the module we are configuring is 'character'
-success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+[palettes.gruvbox]
+green = "#89b482"
+yellow = "#d4be98"
+path = "#7daea3"
+git = "#543937"
+status_ok = "#a9b665"
+warn = "#d8a657"
+error = "#ea6962"
+dark = "#424a3e"
+bg2 = "#45403d"
+bg3 = "#0f3a42"
+fg_dark = "#32302f"
+term = "#32302f"
 
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+################################################################################
+# Username
+################################################################################
+
+[username]
+show_always = true
+format = "[](fg:dark)[$user](bg:dark fg:green)"
+style_user = ""
+style_root = ""
+
+################################################################################
+# Hostname
+################################################################################
+
+[hostname]
+ssh_only = false
+format = "[@$hostname](bg:dark fg:green)[](fg:dark bg:path)"
+style = ""
+
+################################################################################
+# Directory
+################################################################################
+
+[directory]
+home_symbol = " "
+truncation_length = 3
+truncate_to_repo = false
+truncation_symbol = "…/"
+style = "fg:fg_dark bg:path"
+format = "[ $path]($style)[](fg:path bg:fg_dark)"
+
+################################################################################
+# Void
+################################################################################
+
+[custom.void]
+when = true
+format = " "
+
+################################################################################
+# Git
+################################################################################
+
+[git_branch]
+symbol = " "
+format = "[](fg:git)[$symbol$branch](bg:git fg:yellow)[](fg:git)"
+style = ""
+
+################################################################################
+# Fill
+################################################################################
+
+[fill]
+symbol = " "
+
+################################################################################
+# Right prompt
+################################################################################
+
+[status]
+disabled = false
+format = "[ $symbol$status ]($style)"
+success_symbol = " "
+symbol = " "
+map_symbol = true
+success_style = "fg:status_ok"
+failure_style = "fg:error"
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+format = "[  $duration](fg:yellow)"
+
+################################################################################
+# Prompt
+################################################################################
+
+[character]
+success_symbol = ">>"
+error_symbol = ">>"
